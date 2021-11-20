@@ -46,7 +46,7 @@
                         <h6>{{list.title}}</h6>
                         <h6>...</h6>
                     </div>
-                    <div class="issueWrapper" (click)="issueSelect(issue)"  data-bs-toggle="modal" data-bs-target="#taskModal">
+                    <div class="issueWrapper"   data-bs-toggle="modal" data-bs-target="#taskModal">
 
                         <app-card (click)="issueSelect(issue)" *ngFor="let issue of list.issues" [issue]="issue"  ></app-card>
                     </div>

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CardComponent } from './components/card/card.component';
 import { MainComponent } from './pages/main/main.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    DragDropModule
+    DragDropModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
