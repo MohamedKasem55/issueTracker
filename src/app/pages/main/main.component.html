@@ -1,0 +1,119 @@
+<br> <br>
+<div class="container">
+    <div class="heading"  >
+        <h3>Pomac Front End Technical Task</h3>
+        <button class="btn primaryBtn" [disabled]="selectedList===null"
+         data-bs-toggle="modal" data-bs-target="#taskModal"> 
+            <h4 class="plus">+</h4> New Task</button>
+    </div>
+    <br> <hr>
+        <div class="container wrapper"  >
+            <div class="listsWrapper" cdkDropList  (cdkDropListDropped)="drop($event)"
+             [ngStyle]="{'justify-content': lists.length >=2?'space-between':'flex-start'}"
+                *ngIf="lists.length!==0" >
+
+                <div  cdkDrag
+                   *ngFor="let list of lists; let i =index"
+                [ngStyle]="{border: selectedList===i? 'rgb(106,122,217) solid 2px':'none'}"
+                 class="list" (click)="listSelect(i)"  >
+                    <div class='listHeader'>
+                        <h6>{{list.title}}</h6>
+                        <h6>...</h6>
+                    </div>
+                    <div class="issueWrapper" >
+
+                        <app-card  *ngFor="let issue of list.issues" [issue]="issue"  ></app-card>
+                    </div>
+                </div>    
+
+            </div>
+
+
+                <button 
+                 class="btn secondaryBtn" data-bs-toggle="modal" data-bs-target="#listModal"> 
+                 <h4 class="plus" >+</h4> New Column</button> 
+        
+        </div>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="listModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="listModalLabel">New List</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form #listForm='ngForm' (ngSubmit)="listSubmit(listForm.value)"  >
+                <div class="mb-3">
+                  <label for="listTitle" class="form-label">List Title</label>
+                  <input type="text" class="form-control" id="listTitle" ngModel name="listTitle" >
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit"  class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                  </div>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="taskModalLabel">New Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="issueForm" (ngSubmit)="issueSubmit()"  >
+                <div class="mb-3">
+                    <small style="display: block;" class="text-danger" *ngIf="issueForm.controls['issueTitle'].errors" > Task Title is Required </small>
+                  <label for="listTitle" class="form-label">Task Title:</label>
+                  <input type="text" [ngStyle]="{border: issueForm.controls['issueTitle'].errors?'red solid 1px':'none'}"
+                  class="form-control" id="taskTitle" formControlName="issueTitle" >
+                </div>
+                <div class="mb-3">
+                    <small style="display: block;" class="text-danger" *ngIf="issueForm.controls['issueDescription'].errors" > Task Title is Required </small>
+                  <label for="listTitle" class="form-label">Task Description:</label>
+                  <input type="text" class="form-control" id="taskDescription"
+                  [ngStyle]="{border: issueForm.controls['issueDescription'].errors?'red solid 1px':'none'}"
+                  formControlName="issueDescription" >
+                </div>
+                <div class="mb-3">
+                  <label for="listTitle" class="form-label">Task Attachment:</label>
+                  <input type="file" class="form-control" id="taskAttachment" formControlName="issueAttachment" >
+                </div>
+                <div class="mb-3">
+                  <label for="listTitle" class="form-label">Task Date:</label>
+                  <input type="date" class="form-control" id="taskDate" formControlName="issueDate" >
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="issueForm.invalid">Save changes</button>
+                  </div>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
